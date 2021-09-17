@@ -35,17 +35,30 @@ test("Executes handleDelete and toggleEdit property when the 'x' icon is clicked
     const mockToggleEdit = jest.fn();
     const mockDeleteColor = jest.fn();
 
-    render(<Color color={testColor} deleteColor={mockDeleteColor} toggleEdit={mockToggleEdit} handleDelete={mockHandleDelete} />)
+    render(<Color color={testColor} deleteColor={mockDeleteColor} toggleEdit={mockToggleEdit} handleDelete={mockHandleDelete()} />);
 
-    const button = screen.getByTestId('delete')
+    const button = screen.getByTestId('delete');
 
-    userEvent.click(button)
+    userEvent.click(button);
 
-    expect(mockToggleEdit).toBeCalledTimes(1);
-    expect(mockHandleDelete).toBeCalledTimes(1);
+    await waitFor(()=>{
+        expect(mockToggleEdit).toHaveBeenCalledTimes(1);
+        expect(mockHandleDelete).toHaveBeenCalledTimes(1);
+    })
 
 });
 
-test("Executes setEditColor and toggleEdit property when color div is clicked", () => {
-    
+test("Executes setEditColor and toggleEdit property when color div is clicked", async () => {
+    const mockToggleEdit = jest.fn();
+    const mockSetEditColor = jest.fn();
+
+    render(<Color color={testColor} setEditColor={mockSetEditColor} toggleEdit={mockToggleEdit}/>);
+
+    const button = screen.getByTestId('color')
+
+    userEvent.click(button);
+
+    expect(mockToggleEdit).toHaveBeenCalled()
+    expect(mockSetEditColor).toBeCalledTimes(1);
+
 });

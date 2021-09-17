@@ -24,6 +24,8 @@ const testColors = [{
 
 
 test("Renders without errors", ()=> {
+    mockFetchColorService.mockResolvedValueOnce(testColors)
+
     render(<BubblePage/>)
 });
 
