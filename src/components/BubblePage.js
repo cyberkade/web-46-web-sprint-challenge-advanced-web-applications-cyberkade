@@ -20,13 +20,12 @@ const BubblePage = () => {
   const saveEdit = (editColor) => {
     axiosWithAuth()
     .put(`/colors/${editColor.id}`, editColor)
-    .then(setColors(colors.filter(color => color.id !== editColor.id, editColor)))
-    // .then(res => {
-    //   // const oldColor = colors.filter(color => color.id !== editColor.id)
-    //   console.log(colors)
-    //   console.log(res.data)
-    //   setColors([...colors])
-    // })
+    .then(res => {
+      //I could not figure out, for the life of me, how to update the state without mutating the array. If it's possible I would love a pointer/example on how I could do this the right way! (Unless this is the right way, although I doubt it)
+      const newColors = colors.filter(color => color.id !== editColor.id)
+      newColors.push(res.data)
+      setColors(newColors)
+    })
     .catch(err => console.log(err))
   };
 

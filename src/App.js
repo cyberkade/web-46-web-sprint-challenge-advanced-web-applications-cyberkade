@@ -12,7 +12,6 @@ import "./styles.scss";
 
 function App() {
 
-
   const logout = () => {
     axiosWithAuth()
     .post('/logout')
